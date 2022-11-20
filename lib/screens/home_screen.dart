@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: Text('Appp shbfhdh')),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
