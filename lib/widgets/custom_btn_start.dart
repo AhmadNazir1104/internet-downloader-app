@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class CustomBtnContainer extends StatelessWidget {
   final String title;
   final String titleValue;
-  const CustomBtnContainer(
-      {required this.title, required this.titleValue, super.key});
+  const CustomBtnContainer({
+    required this.title,
+    required this.titleValue,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

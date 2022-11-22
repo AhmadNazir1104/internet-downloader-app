@@ -8,6 +8,7 @@ import 'package:internet_speed/screens/wifi_info.dart';
 import 'package:internet_speed/utility/app_strings.dart';
 import 'package:internet_speed/widgets/custom_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: Stack(children: [
         Container(
-          height: 60,
+          height: 75.h,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -106,26 +107,62 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomNavyBar(
           selectedIndex: _selectedIndex,
           showElevation: true,
-          itemCornerRadius: 24,
+          itemCornerRadius: 24.r,
           backgroundColor: Colors.transparent,
           curve: Curves.easeIn,
           onItemSelected: (index) => setState(() => _selectedIndex = index),
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
-              icon: FaIcon(FontAwesomeIcons.powerOff),
-              title: Text('Start'),
+              icon: FaIcon(
+                FontAwesomeIcons.powerOff,
+                color: _selectedIndex == 0
+                    ? appColors().primaryColor
+                    : Colors.white,
+              ),
+              title: Text(
+                'Start',
+                style: TextStyle(
+                  color: _selectedIndex == 0
+                      ? appColors().primaryColor
+                      : Colors.white,
+                ),
+              ),
               activeColor: Colors.white,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
-              icon: FaIcon(FontAwesomeIcons.squarePollVertical),
-              title: Text('Result'),
+              icon: FaIcon(
+                FontAwesomeIcons.squarePollVertical,
+                color: _selectedIndex == 1
+                    ? appColors().primaryColor
+                    : Colors.white,
+              ),
+              title: Text(
+                'Result',
+                style: TextStyle(
+                  color: _selectedIndex == 1
+                      ? appColors().primaryColor
+                      : Colors.white,
+                ),
+              ),
               activeColor: Colors.white,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
-              icon: FaIcon(FontAwesomeIcons.gears),
-              title: Text('Settings'),
+              icon: FaIcon(
+                FontAwesomeIcons.gears,
+                color: _selectedIndex == 2
+                    ? appColors().primaryColor
+                    : Colors.white,
+              ),
+              title: Text(
+                'Settings',
+                style: TextStyle(
+                  color: _selectedIndex == 2
+                      ? appColors().primaryColor
+                      : Colors.white,
+                ),
+              ),
               activeColor: Colors.white,
               textAlign: TextAlign.center,
             ),

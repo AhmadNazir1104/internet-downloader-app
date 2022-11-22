@@ -51,6 +51,9 @@ dev_dependencies:
   flutter_switch: ^0.3.2
   bottom_navy_bar: ^6.0.0
   font_awesome_flutter: ^10.2.1
+  network_info_plus: ^3.0.1
+  page_transition: ^2.0.9
+  device_info_plus: ^8.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/fonts/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -79,10 +83,22 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: popinsregular
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+    - family: popinsmedium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+    - family: popinslight
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+    - family: popinsbold
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+    - family: popinssemibold
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf    
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:internet_speed/utility/app_strings.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String titleTxt;
@@ -9,7 +10,12 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      title: Text(titleTxt),
+      title: Text(
+        titleTxt,
+        style: TextStyle(
+          fontFamily: 'popinsmedium',
+        ),
+      ),
       flexibleSpace: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -22,8 +28,8 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(10),
-        bottomRight: Radius.circular(10),
+        bottomLeft: Radius.circular(10.r),
+        bottomRight: Radius.circular(10.r),
       )),
     );
   }
