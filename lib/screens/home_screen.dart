@@ -5,7 +5,9 @@ import 'package:internet_speed/pages/setting_page.dart';
 import 'package:internet_speed/pages/start_page.dart';
 import 'package:internet_speed/screens/phone_info.dart';
 import 'package:internet_speed/screens/wifi_info.dart';
+import 'package:internet_speed/utility/app_strings.dart';
 import 'package:internet_speed/widgets/custom_app_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,7 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                      appColors().primaryColor,
+                      appColors().secondaryColor
+                    ])),
                 child: Text("Spped")),
             ListTile(
               leading: Icon(Icons.phone),
@@ -82,33 +91,47 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _selectedIndex,
-        showElevation: true,
-        itemCornerRadius: 24,
-        curve: Curves.easeIn,
-        onItemSelected: (index) => setState(() => _selectedIndex = index),
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-            icon: Icon(Icons.power),
-            title: Text('Start'),
-            activeColor: Colors.blue,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.refresh_outlined),
-            title: Text('Result'),
-            activeColor: Colors.blue,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-            activeColor: Colors.blue,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+      bottomNavigationBar: Stack(children: [
+        Container(
+          height: 60,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                appColors().primaryColor,
+                appColors().secondaryColor
+              ])),
+        ),
+        BottomNavyBar(
+          selectedIndex: _selectedIndex,
+          showElevation: true,
+          itemCornerRadius: 24,
+          backgroundColor: Colors.transparent,
+          curve: Curves.easeIn,
+          onItemSelected: (index) => setState(() => _selectedIndex = index),
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: FaIcon(FontAwesomeIcons.powerOff),
+              title: Text('Start'),
+              activeColor: Colors.white,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: FaIcon(FontAwesomeIcons.squarePollVertical),
+              title: Text('Result'),
+              activeColor: Colors.white,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: FaIcon(FontAwesomeIcons.gears),
+              title: Text('Settings'),
+              activeColor: Colors.white,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ]),
     ));
   }
 }
