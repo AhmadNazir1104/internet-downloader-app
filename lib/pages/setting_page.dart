@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -6,7 +7,21 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Setting"),
-    );
+        body: Column(children: [
+      Text("data"),
+      SettingsList(
+        sections: [
+          SettingsSection(
+            tiles: [
+              SettingsTile(
+                title: Text("Language"),
+                leading: Icon(Icons.language),
+                onPressed: (context) {},
+              )
+            ],
+          )
+        ],
+      )
+    ]));
   }
 }

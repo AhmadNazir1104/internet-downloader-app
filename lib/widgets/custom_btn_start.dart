@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBtnContainer extends StatelessWidget {
   final String title;
@@ -12,9 +13,10 @@ class CustomBtnContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 80,
-      decoration: BoxDecoration(color: Colors.blue),
+      height: 50.h,
+      width: 80.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.r), color: Colors.blue),
       child: Column(children: [
         Text(
           title,

@@ -64,7 +64,7 @@ class _StartPageState extends State<StartPage> {
                         ? 'Selecting Server...'
                         : 'IP: ${homeProvider.ip ?? '--'} | ASP: ${homeProvider.asn ?? '--'} | ISP: ${homeProvider.isp ?? '--'}'),
                   ),
-                  if (!homeProvider.testInProgress) ...{
+                  if (homeProvider.testInProgress) ...{
                     InkWell(
                       onTap: () {
                         homeProvider.startSpeedTest();
