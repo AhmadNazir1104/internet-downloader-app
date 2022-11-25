@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:internet_speed/provider/internet_connection_provider.dart';
+
 import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -60,6 +58,7 @@ class HomeProvider extends ChangeNotifier {
       uploadProgress = '100';
       uploadCompletionTime = upload.durationInMillis;
       testInProgress = false;
+//
     }, onProgress: (double percent, TestResult data) {
       if (internetSpeedTest.isLogEnabled) {
         print('the transfer rate $data.transferRate, the percent $percent');

@@ -6,22 +6,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(children: [
-      Text("data"),
-      SettingsList(
-        sections: [
-          SettingsSection(
-            tiles: [
-              SettingsTile(
-                title: Text("Language"),
-                leading: Icon(Icons.language),
-                onPressed: (context) {},
-              )
-            ],
-          )
-        ],
-      )
-    ]));
+    return Container();
   }
 }
