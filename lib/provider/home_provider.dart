@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
 
@@ -32,10 +34,10 @@ class HomeProvider extends ChangeNotifier {
 
   String unitText = 'Mb/s';
 
-  var asdf;
+  int speedProgressValue = 0;
 
   progressFun(val) {
-    asdf = val;
+    speedProgressValue = val;
     notifyListeners();
   }
 
@@ -63,27 +65,37 @@ class HomeProvider extends ChangeNotifier {
       if (internetSpeedTest.isLogEnabled) {
         print('the transfer rate $data.transferRate, the percent $percent');
       }
-      progressFun(data);
+
       unitText = data.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
       if (data.type == TestType.DOWNLOAD) {
         downloadRate = data.transferRate;
         downloadProgress = percent.toStringAsFixed(2);
+        log('downloadRate $downloadRate');
+        speedProgressValue = int.parse(downloadRate.toStringAsFixed(2));
+        log(speedProgressValue.toString());
+        notifyListeners();
+        // progressFun(percent.toStringAsFixed(2));
       } else {
         uploadRate = data.transferRate;
         uploadProgress = percent.toStringAsFixed(2);
+        log('downloadRate $downloadRate');
+        speedProgressValue = int.parse(downloadRate.toStringAsFixed(2));
+        log(speedProgressValue.toString());
+        notifyListeners();
+
+        // progressFun(percent.toStringAsFixed(2));
       }
-    }, 
-    onError: (String errorMessage, String speedTestError) {
+
+ 
+    }, onError: (String errorMessage, String speedTestError) {
       if (internetSpeedTest.isLogEnabled) {
         print(
             'the errorMessage $errorMessage, the speedTestError $speedTestError');
       }
       reset();
-    }, 
-    onDefaultServerSelectionInProgress: () {
+    }, onDefaultServerSelectionInProgress: () {
       isServerSelectionInProgress = true;
-    },
-     onDefaultServerSelectionDone: (Client? client) {
+    }, onDefaultServerSelectionDone: (Client? client) {
       isServerSelectionInProgress = false;
       ip = client?.ip;
       asn = client?.asn;
@@ -97,6 +109,8 @@ class HomeProvider extends ChangeNotifier {
       unitText = data.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
       uploadCompletionTime = data.durationInMillis;
     });
+
+    notifyListeners();
   }
 
   void reset() {

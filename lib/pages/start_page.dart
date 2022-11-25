@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:internet_speed/provider/home_provider.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';
-
+import 'package:alxgration_speedometer/speedometer.dart';
 import 'package:internet_speed/utility/app_strings.dart';
 import 'package:provider/provider.dart';
-
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -64,7 +62,7 @@ class _StartPageState extends State<StartPage> {
                         ? 'Selecting Server...'
                         : 'IP: ${homeProvider.ip ?? '--'} | ASP: ${homeProvider.asn ?? '--'} | ISP: ${homeProvider.isp ?? '--'}'),
                   ),
-                  if (homeProvider.testInProgress) ...{
+                  if (homeProvider.testInProgress == false) ...{
                     InkWell(
                       onTap: () {
                         homeProvider.startSpeedTest();
@@ -109,7 +107,30 @@ class _StartPageState extends State<StartPage> {
                     )
                   } else ...{
                     // const CircularProgressIndicator(),
-                    _getLinearGauge(),
+                    // _getLinearGauge(),
+                    Consumer<HomeProvider>(
+                      builder: (context, homePro, child) {
+                        return Container(
+                          child: Speedometer(
+                            size: 200,
+                            minValue: 0,
+                            maxValue: 100,
+                            // currentValue:56,
+                            currentValue : homeProvider.speedProgressValue, 
+                            barColor: Colors.purple,
+                            pointerColor: Colors.black,
+                            displayText: "km/h",
+                            displayTextStyle: TextStyle(
+                                fontSize: 14, color: Colors.deepOrange),
+                            displayNumericStyle:
+                                TextStyle(fontSize: 24, color: Colors.red),
+                            onComplete: () {
+                              print("ON COMPLETE");
+                            },
+                          ),
+                        );
+                      },
+                    )
                   },
                 ],
               ),
@@ -123,51 +144,67 @@ class _StartPageState extends State<StartPage> {
 
   Widget _getLinearGauge() {
     return Container(
-      child: SfRadialGauge(axes: <RadialAxis>[
-        RadialAxis(minimum: 0, maximum: 150, ranges: <GaugeRange>[
-          GaugeRange(
-            startValue: 0,
-            endValue: 50,
-            color: Colors.green,
-            startWidth: 10,
-            endWidth: 10,
-          ),
-          GaugeRange(
-            startValue: 50,
-            endValue: 100,
-            color: Colors.orange,
-            startWidth: 10,
-            endWidth: 10,
-          ),
-          GaugeRange(
-            startValue: 100,
-            endValue: 150,
-            color: Colors.red,
-            startWidth: 10,
-            endWidth: 10,
-          )
-        ], pointers: <GaugePointer>[
-          NeedlePointer(
-            // value: Provider.of<HomeProvider>(context, listen: true).asdf,
-            value: 90,
-          )
-        ], annotations: <GaugeAnnotation>[
-          GaugeAnnotation(
-            widget: Container(
-              child: Text(
-                '90',
-                // Provider.of<HomeProvider>(context, listen: false).asdf,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            angle: 90,
-            positionFactor: 0.5,
-          )
-        ])
-      ]),
+      child: Speedometer(
+        size: 200,
+        minValue: 0,
+        maxValue: 100,
+        currentValue: int.parse(
+            Provider.of<HomeProvider>(context, listen: false).speedProgressValue.toString()),
+        barColor: Colors.purple,
+        pointerColor: Colors.black,
+        displayText: "km/h",
+        displayTextStyle: TextStyle(fontSize: 14, color: Colors.deepOrange),
+        displayNumericStyle: TextStyle(fontSize: 24, color: Colors.red),
+        onComplete: () {
+          print("ON COMPLETE");
+        },
+      ),
+      // child: SfRadialGauge(axes: <RadialAxis>[
+      //   RadialAxis(minimum: 0, maximum: 150, ranges: <GaugeRange>[
+      //     GaugeRange(
+      //       startValue: 0,
+      //       endValue: 50,
+      //       color: Colors.green,
+      //       startWidth: 10,
+      //       endWidth: 10,
+      //     ),
+      //     GaugeRange(
+      //       startValue: 50,
+      //       endValue: 100,
+      //       color: Colors.orange,
+      //       startWidth: 10,
+      //       endWidth: 10,
+      //     ),
+      //     GaugeRange(
+      //       startValue: 100,
+      //       endValue: 150,
+      //       color: Colors.red,
+      //       startWidth: 10,
+      //       endWidth: 10,
+      //     )
+      //   ], pointers: <GaugePointer>[
+      //     NeedlePointer(
+      //       // value: Provider.of<HomeProvider>(context, listen: true).asdf,
+      //       value: 90,
+      //     )
+      //   ], annotations: <GaugeAnnotation>[
+      //     GaugeAnnotation(
+      //       widget: Container(
+      //         child: Text(
+      //           '90',
+      //           // Provider.of<HomeProvider>(context, listen: false).asdf,
+      //           style: TextStyle(
+      //             fontSize: 25,
+      //             fontWeight: FontWeight.bold,
+      //           ),
+      //         ),
+      //       ),
+      //       angle: 90,
+      //       positionFactor: 0.5,
+      //     )
+      //   ])
+      // ]),
+
       // minimum: 0.0,
       // maximum: 100.0,
       // orientation: LinearGaugeOrientation.horizontal,
