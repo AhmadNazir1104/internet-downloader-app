@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:internet_speed/provider/internet_connection_provider.dart';
 import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -48,7 +45,8 @@ class HomeProvider extends ChangeNotifier {
     }, onCompleted: (TestResult download, TestResult upload) {
       if (internetSpeedTest.isLogEnabled) {
         print(
-            'the transfer rate ${download.transferRate}, ${upload.transferRate}');
+          'the transfer rate ${download.transferRate}, ${upload.transferRate}',
+        );
       }
       downloadRate = download.transferRate;
       unitText = download.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
@@ -59,7 +57,8 @@ class HomeProvider extends ChangeNotifier {
       uploadProgress = '100';
       uploadCompletionTime = upload.durationInMillis;
       testInProgress = false;
-    }, onProgress: (double percent, TestResult data) {
+    },
+     onProgress: (double percent, TestResult data) {
       if (internetSpeedTest.isLogEnabled) {
         print('the transfer rate $data.transferRate, the percent $percent');
       }
@@ -72,15 +71,18 @@ class HomeProvider extends ChangeNotifier {
         uploadRate = data.transferRate;
         uploadProgress = percent.toStringAsFixed(2);
       }
-    }, onError: (String errorMessage, String speedTestError) {
+    }, 
+    onError: (String errorMessage, String speedTestError) {
       if (internetSpeedTest.isLogEnabled) {
         print(
             'the errorMessage $errorMessage, the speedTestError $speedTestError');
       }
       reset();
-    }, onDefaultServerSelectionInProgress: () {
+    }, 
+    onDefaultServerSelectionInProgress: () {
       isServerSelectionInProgress = true;
-    }, onDefaultServerSelectionDone: (Client? client) {
+    },
+     onDefaultServerSelectionDone: (Client? client) {
       isServerSelectionInProgress = false;
       ip = client?.ip;
       asn = client?.asn;
