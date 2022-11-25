@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:internet_speed/provider/home_provider.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';
-import 'package:internet_speed/screens/start_screen.dart';
+
 import 'package:internet_speed/utility/app_strings.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
+
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class StartPage extends StatefulWidget {
@@ -64,7 +64,7 @@ class _StartPageState extends State<StartPage> {
                         ? 'Selecting Server...'
                         : 'IP: ${homeProvider.ip ?? '--'} | ASP: ${homeProvider.asn ?? '--'} | ISP: ${homeProvider.isp ?? '--'}'),
                   ),
-                  if (!homeProvider.testInProgress) ...{
+                  if (homeProvider.testInProgress) ...{
                     InkWell(
                       onTap: () {
                         homeProvider.startSpeedTest();

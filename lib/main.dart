@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:internet_speed/provider/all_providers.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';

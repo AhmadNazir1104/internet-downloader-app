@@ -18,6 +18,7 @@ class HomeProvider extends ChangeNotifier {
 
   bool testInProgress = false;
   double downloadRate = 0;
+  int xyz = 1;
   double uploadRate = 0;
   String downloadProgress = '0';
   String uploadProgress = '0';
@@ -57,8 +58,8 @@ class HomeProvider extends ChangeNotifier {
       uploadProgress = '100';
       uploadCompletionTime = upload.durationInMillis;
       testInProgress = false;
-    },
-     onProgress: (double percent, TestResult data) {
+//
+    }, onProgress: (double percent, TestResult data) {
       if (internetSpeedTest.isLogEnabled) {
         print('the transfer rate $data.transferRate, the percent $percent');
       }

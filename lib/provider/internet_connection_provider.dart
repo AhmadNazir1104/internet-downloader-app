@@ -1,10 +1,8 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:internet_speed/services/internet_connection_service.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
 class InternetConnectionProvider with ChangeNotifier {
   Map _source = {ConnectivityResult.none: false};
   final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
