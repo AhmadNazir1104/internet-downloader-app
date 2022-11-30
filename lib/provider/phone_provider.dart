@@ -5,49 +5,83 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:internet_speed/models/phone_model.dart';
 
 class PhoneProvider extends ChangeNotifier {
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  // static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   var phoneDatamodel = PhoneDatamodel();
 
+  // Phone Data Veriables
+  String? securityPatch;
+  String? sdkInt;
+  String? release;
+  String? previewSdkInt;
+  String? incremental;
+  String? codename;
+  String? baseOS;
+  String? board;
+  String? bootloader;
+  String? brand;
+  String? device;
+  String? display;
+  String? fingerprint;
+  String? hardware;
+  String? host;
+  String? id;
+  String? manufactures;
+  String? model;
+  String? product;
+  String? supported32BitAbis;
+  String? supported64BitAbis;
+  String? supportedAbis;
+  String? tags;
+  String? types;
+  String? isPhysicalDevice;
+  String? systemFeature;
+  String? displaySizeInches;
+  String? displayWidthPixels;
+  String? displayWidthInches;
+  String? displayHeightPixels;
+  String? displayHeightInches;
+  String? displayXDpi;
+  String? displayYDpi;
+
   readAndroidBuildData() async {
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    log('Data Fetching Strat====');
     var dataInfo = await deviceInfoPlugin.androidInfo;
 
-    phoneDatamodel.board = dataInfo.board;
-    phoneDatamodel.sdkInt = dataInfo.version.sdkInt.toString();
-    phoneDatamodel.release = dataInfo.version.release;
-    phoneDatamodel.previewSdkInt = dataInfo.version.previewSdkInt.toString();
-    phoneDatamodel.incremental = dataInfo.version.incremental;
-    phoneDatamodel.codename = dataInfo.version.codename;
-    phoneDatamodel.baseOS = dataInfo.version.baseOS;
-    phoneDatamodel.bootloader = dataInfo.bootloader;
-    phoneDatamodel.brand = dataInfo.brand;
-    phoneDatamodel.device = dataInfo.device;
-    phoneDatamodel.display = dataInfo.display;
-    phoneDatamodel.fingerprint = dataInfo.fingerprint;
-    phoneDatamodel.hardware = dataInfo.hardware;
-    phoneDatamodel.host = dataInfo.host;
-    phoneDatamodel.id = dataInfo.id;
-    phoneDatamodel.manufactures = dataInfo.manufacturer;
-    phoneDatamodel.model = dataInfo.model;
-    phoneDatamodel.product = dataInfo.product;
-    phoneDatamodel.supported32BitAbis = dataInfo.supported32BitAbis.toString();
-    phoneDatamodel.supported64BitAbis = dataInfo.supported64BitAbis.toString();
-    phoneDatamodel.supportedAbis = dataInfo.supportedAbis.toString();
-    phoneDatamodel.tags = dataInfo.tags;
-    phoneDatamodel.types = dataInfo.type;
-    phoneDatamodel.isPhysicalDevice = dataInfo.isPhysicalDevice.toString();
-    phoneDatamodel.systemFeature = dataInfo.systemFeatures.toString();
-    phoneDatamodel.displaySizeInches =
-        dataInfo.displayMetrics.sizeInches.toString();
-    phoneDatamodel.displayWidthPixels =
-        dataInfo.displayMetrics.widthPx.toString();
-    phoneDatamodel.displayWidthInches =
-        dataInfo.displayMetrics.widthInches.toString();
-    phoneDatamodel.displayHeightInches =
-        dataInfo.displayMetrics.heightInches.toString();
-    phoneDatamodel.displayHeightPixels =
-        dataInfo.displayMetrics.heightPx.toString();
-    phoneDatamodel.displayXDpi = dataInfo.displayMetrics.xDpi.toString();
-    phoneDatamodel.displayYDpi = dataInfo.displayMetrics.yDpi.toString();
+    board = dataInfo.board;
+    log('body = $board');
+    sdkInt = dataInfo.version.sdkInt.toString();
+    release = dataInfo.version.release;
+    previewSdkInt = dataInfo.version.previewSdkInt.toString();
+    incremental = dataInfo.version.incremental;
+    codename = dataInfo.version.codename;
+    baseOS = dataInfo.version.baseOS;
+    bootloader = dataInfo.bootloader;
+    brand = dataInfo.brand;
+    device = dataInfo.device;
+    display = dataInfo.display;
+    fingerprint = dataInfo.fingerprint;
+    hardware = dataInfo.hardware;
+    host = dataInfo.host;
+    id = dataInfo.id;
+    manufactures = dataInfo.manufacturer;
+    model = dataInfo.model;
+    product = dataInfo.product;
+    supported32BitAbis = dataInfo.supported32BitAbis.toString();
+    supported64BitAbis = dataInfo.supported64BitAbis.toString();
+    supportedAbis = dataInfo.supportedAbis.toString();
+    tags = dataInfo.tags;
+    types = dataInfo.type;
+    isPhysicalDevice = dataInfo.isPhysicalDevice.toString();
+    systemFeature = dataInfo.systemFeatures.toString();
+    displaySizeInches = dataInfo.displayMetrics.sizeInches.toString();
+    displayWidthPixels = dataInfo.displayMetrics.widthPx.toString();
+    displayWidthInches = dataInfo.displayMetrics.widthInches.toString();
+    displayHeightInches = dataInfo.displayMetrics.heightInches.toString();
+    displayHeightPixels = dataInfo.displayMetrics.heightPx.toString();
+    displayXDpi = dataInfo.displayMetrics.xDpi.toString();
+    displayYDpi = dataInfo.displayMetrics.yDpi.toString();
+    log('Data Fetching Complete====');
 
     //  <String, dynamic>{
     //   'version.securityPatch': build.version.securityPatch,
