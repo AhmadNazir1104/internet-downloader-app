@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:internet_speed/ads_services/ads_services.dart';
 import 'package:internet_speed/provider/home_provider.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';
 import 'package:alxgration_speedometer/speedometer.dart';
 import 'package:internet_speed/utility/app_strings.dart';
 import 'package:provider/provider.dart';
+import 'package:applovin_max/applovin_max.dart';
+import 'dart:math' as m;
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -15,124 +18,146 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AdsServices.initializeInterstitialAds();
+  }
+
+  @override
   Widget build(BuildContext context) {
     InternetConnectionProvider internetConnectionProvider =
         Provider.of<InternetConnectionProvider>(context, listen: true);
     HomeProvider homeProvider =
         Provider.of<HomeProvider>(context, listen: true);
     return Scaffold(
+      bottomNavigationBar: AdsServices.displayBannerAd(),
       body: internetConnectionProvider.internetConnection
           ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Download Speed',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            AdsServices.displayInterstitialAds();
+                          },
+                          child: Text('Display Interstitial Ads'),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text('Progress: ${homeProvider.downloadRate} %'),
-                  Text(
-                      'Download Rate: ${homeProvider.downloadRate} ${homeProvider.unitText}'),
-                  if (homeProvider.downloadCompletionTime > 0)
+                    AdsServices.displayNativeMRECAd(),
+                    const Text(
+                      'Download Speed',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Progress: ${homeProvider.downloadRate} %'),
+                    Text(
+                        'Download Rate: ${homeProvider.downloadRate} ${homeProvider.unitText}'),
+                    if (homeProvider.downloadCompletionTime > 0)
+                      const SizedBox(
+                        height: 32.0,
+                      ),
+                    const Text(
+                      'Upload Speed',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Progress: ${homeProvider.uploadProgress}%'),
+                    Text(
+                        'Upload Rate: ${homeProvider.uploadRate} ${homeProvider.unitText}'),
+                    if (homeProvider.uploadCompletionTime > 0)
+                      Text(
+                          'Time taken: ${(homeProvider.uploadCompletionTime / 1000).toStringAsFixed(2)} sec(s)'),
                     const SizedBox(
                       height: 32.0,
                     ),
-                  const Text(
-                    'Upload Speed',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Text(homeProvider.isServerSelectionInProgress
+                          ? 'Selecting Server...'
+                          : 'IP: ${homeProvider.ip ?? '--'} | ASP: ${homeProvider.asn ?? '--'} | ISP: ${homeProvider.isp ?? '--'}'),
                     ),
-                  ),
-                  Text('Progress: ${homeProvider.uploadProgress}%'),
-                  Text(
-                      'Upload Rate: ${homeProvider.uploadRate} ${homeProvider.unitText}'),
-                  if (homeProvider.uploadCompletionTime > 0)
-                    Text(
-                        'Time taken: ${(homeProvider.uploadCompletionTime / 1000).toStringAsFixed(2)} sec(s)'),
-                  const SizedBox(
-                    height: 32.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: Text(homeProvider.isServerSelectionInProgress
-                        ? 'Selecting Server...'
-                        : 'IP: ${homeProvider.ip ?? '--'} | ASP: ${homeProvider.asn ?? '--'} | ISP: ${homeProvider.isp ?? '--'}'),
-                  ),
-                  if (homeProvider.testInProgress == false) ...{
-                    InkWell(
-                      onTap: () {
-                        homeProvider.startSpeedTest();
-                      },
-                      child: Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    appColors().primaryColor,
-                                    appColors().secondaryColor
-                                  ]),
-                              shape: BoxShape.circle,
-                              color: Colors.blue),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                            ),
-                            child: Column(
-                              children: [
-                                Center(
-                                    child: FaIcon(
-                                  FontAwesomeIcons.powerOff,
-                                  size: 60,
-                                  color: Colors.white,
-                                )),
-                                SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  "START",
-                                  style: TextStyle(
+                    if (homeProvider.testInProgress == false) ...{
+                      InkWell(
+                        onTap: () {
+                          homeProvider.startSpeedTest();
+                        },
+                        child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      appColors().primaryColor,
+                                      appColors().secondaryColor
+                                    ]),
+                                shape: BoxShape.circle,
+                                color: Colors.blue),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                              ),
+                              child: Column(
+                                children: [
+                                  Center(
+                                      child: FaIcon(
+                                    FontAwesomeIcons.powerOff,
+                                    size: 60,
                                     color: Colors.white,
+                                  )),
+                                  SizedBox(
+                                    height: 3,
                                   ),
-                                )
-                              ],
+                                  Text(
+                                    "START",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )),
+                      )
+                    } else ...{
+                      // const CircularProgressIndicator(),
+                      // _getLinearGauge(),
+                      Consumer<HomeProvider>(
+                        builder: (context, homePro, child) {
+                          return Container(
+                            child: Speedometer(
+                              size: 200,
+                              minValue: 0,
+                              maxValue: 100,
+                              // currentValue:56,
+                              currentValue: homeProvider.speedProgressValue,
+                              barColor: Colors.purple,
+                              pointerColor: Colors.black,
+                              displayText: "km/h",
+                              displayTextStyle: TextStyle(
+                                  fontSize: 14, color: Colors.deepOrange),
+                              displayNumericStyle:
+                                  TextStyle(fontSize: 24, color: Colors.red),
+                              onComplete: () {
+                                print("ON COMPLETE");
+                              },
                             ),
-                          )),
-                    )
-                  } else ...{
-                    // const CircularProgressIndicator(),
-                    // _getLinearGauge(),
-                    Consumer<HomeProvider>(
-                      builder: (context, homePro, child) {
-                        return Container(
-                          child: Speedometer(
-                            size: 200,
-                            minValue: 0,
-                            maxValue: 100,
-                            // currentValue:56,
-                            currentValue : homeProvider.speedProgressValue, 
-                            barColor: Colors.purple,
-                            pointerColor: Colors.black,
-                            displayText: "km/h",
-                            displayTextStyle: TextStyle(
-                                fontSize: 14, color: Colors.deepOrange),
-                            displayNumericStyle:
-                                TextStyle(fontSize: 24, color: Colors.red),
-                            onComplete: () {
-                              print("ON COMPLETE");
-                            },
-                          ),
-                        );
-                      },
-                    )
-                  },
-                ],
+                          );
+                        },
+                      )
+                    },
+                  ],
+                ),
               ),
             )
           : Center(
@@ -149,7 +174,9 @@ class _StartPageState extends State<StartPage> {
         minValue: 0,
         maxValue: 100,
         currentValue: int.parse(
-            Provider.of<HomeProvider>(context, listen: false).speedProgressValue.toString()),
+            Provider.of<HomeProvider>(context, listen: false)
+                .speedProgressValue
+                .toString()),
         barColor: Colors.purple,
         pointerColor: Colors.black,
         displayText: "km/h",

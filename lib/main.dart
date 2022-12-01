@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:internet_speed/ads_services/ads_services.dart';
 import 'package:internet_speed/provider/all_providers.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';
 import './screens/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:applovin_max/applovin_max.dart';
 
-void main() {
+Future<void> main() async {
+  AdsServices.adsInitialize();
   runApp(const MyApp());
 }
 
@@ -39,7 +42,6 @@ class _MyAppState extends State<MyApp> {
                   primarySwatch: Colors.blue,
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-
                 debugShowCheckedModeBanner: false,
                 home: const SplashScreen(),
               );

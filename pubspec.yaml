@@ -59,7 +59,7 @@ dev_dependencies:
   connectivity_plus: ^2.3.7
   syncfusion_flutter_gauges: ^20.3.58
   alxgration_speedometer: ^0.0.2
-
+  applovin_max: ^2.3.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
