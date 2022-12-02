@@ -36,7 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+
+    
       appBar: CustomeAppBar(titleTxt: "Internet Speed"),
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
