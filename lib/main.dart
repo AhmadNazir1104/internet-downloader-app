@@ -39,23 +39,11 @@ class _MyAppState extends State<MyApp> {
                   primarySwatch: Colors.blue,
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-
                 debugShowCheckedModeBanner: false,
                 home: const SplashScreen(),
               );
             }));
       },
-
-      // builder: (BuildContext context, Widget? child) {
-      //   return MaterialApp(
-      //     theme: ThemeData(
-      //       primarySwatch: Colors.blue,
-      //       visualDensity: VisualDensity.adaptivePlatformDensity,
-      //     ),
-      //     debugShowCheckedModeBanner: false,
-      //     home: const SplashScreen(),
-      //   );
-      // },
     );
   }
 }
