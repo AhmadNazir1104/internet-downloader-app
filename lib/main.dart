@@ -1,15 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_speed/ads_services/ads_services.dart';
+import 'package:internet_speed/models/wifi_Resut_Model.dart';
 import 'package:internet_speed/provider/all_providers.dart';
 import 'package:internet_speed/provider/internet_connection_provider.dart';
 import './screens/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:applovin_max/applovin_max.dart';
-
+import 'package:path_provider/path_provider.dart';
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   AdsServices.adsInitialize();
+   final appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
+  Hive.registerAdapter(WifiResultModelAdapter());
   runApp(const MyApp());
 }
 

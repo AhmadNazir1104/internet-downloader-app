@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/wifi_Resut_Model.dart';
 
 class HomeProvider extends ChangeNotifier {
   late BuildContext context;
@@ -18,110 +21,121 @@ class HomeProvider extends ChangeNotifier {
 
   final internetSpeedTest = FlutterInternetSpeedTest();
 
-  bool testInProgress = false;
-  double downloadRate = 0;
-  int xyz = 1;
-  double uploadRate = 0;
-  String downloadProgress = '0';
-  String uploadProgress = '0';
-  int downloadCompletionTime = 0;
-  int uploadCompletionTime = 0;
-  bool isServerSelectionInProgress = false;
+  String dataUnit = '';
+  String tranxferType = 'download';
+  double transferRate = 0.0;
+  double dataCompleteRate = 0.0;
+  double? uploadCompleteRate;
+  double? downloadComplteRate;
+  int homeState = 0;
+  bool testDownloadType = false;
+  bool testUploadType = false;
 
-  String? ip;
-  String? asn;
-  String? isp;
-
-  String unitText = 'Mb/s';
-
-  int speedProgressValue = 0;
-
-  progressFun(val) {
-    speedProgressValue = val;
-    notifyListeners();
-  }
-
-  startSpeedTest() async {
-    reset();
-    await internetSpeedTest.startTesting(onStarted: () {
-      testInProgress = true;
-    }, onCompleted: (TestResult download, TestResult upload) {
-      if (internetSpeedTest.isLogEnabled) {
+  checkInterSpeed() {
+    internetSpeedTest.startTesting(
+      onProgress: (percent, data) {
         print(
-          'the transfer rate ${download.transferRate}, ${upload.transferRate}',
+          'data.unit ${data.unit} Transfer Type : ${data.type}the transfer rate ${data.transferRate}, the percent $percent',
         );
-      }
-      downloadRate = download.transferRate;
-      unitText = download.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
-      downloadProgress = '100';
-      downloadCompletionTime = download.durationInMillis;
-      uploadRate = upload.transferRate;
-      unitText = upload.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
-      uploadProgress = '100';
-      uploadCompletionTime = upload.durationInMillis;
-      testInProgress = false;
-//
-    }, onProgress: (double percent, TestResult data) {
-      if (internetSpeedTest.isLogEnabled) {
-        print('the transfer rate $data.transferRate, the percent $percent');
-      }
 
-      unitText = data.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
-      if (data.type == TestType.DOWNLOAD) {
-        downloadRate = data.transferRate;
-        downloadProgress = percent.toStringAsFixed(2);
-        log('downloadRate $downloadRate');
-        speedProgressValue = int.parse(downloadRate.toStringAsFixed(2));
-        log(speedProgressValue.toString());
+        dataUnit = data.unit.toString();
+        tranxferType = data.type.toString();
+        transferRate = data.transferRate;
+        dataCompleteRate = percent;
         notifyListeners();
-        // progressFun(percent.toStringAsFixed(2));
-      } else {
-        uploadRate = data.transferRate;
-        uploadProgress = percent.toStringAsFixed(2);
-        log('downloadRate $downloadRate');
-        speedProgressValue = int.parse(downloadRate.toStringAsFixed(2));
-        log(speedProgressValue.toString());
-        notifyListeners();
-
-        // progressFun(percent.toStringAsFixed(2));
-      }
-
- 
-    }, onError: (String errorMessage, String speedTestError) {
-      if (internetSpeedTest.isLogEnabled) {
+      },
+      onError: (String errorMessage, String speedTestError) {
         print(
             'the errorMessage $errorMessage, the speedTestError $speedTestError');
-      }
-      reset();
-    }, onDefaultServerSelectionInProgress: () {
-      isServerSelectionInProgress = true;
-    }, onDefaultServerSelectionDone: (Client? client) {
-      isServerSelectionInProgress = false;
-      ip = client?.ip;
-      asn = client?.asn;
-      isp = client?.isp;
-    }, onDownloadComplete: (TestResult data) {
-      downloadRate = data.transferRate;
-      unitText = data.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
-      downloadCompletionTime = data.durationInMillis;
-    }, onUploadComplete: (TestResult data) {
-      uploadRate = data.transferRate;
-      unitText = data.unit == SpeedUnit.Kbps ? 'Kb/s' : 'Mb/s';
-      uploadCompletionTime = data.durationInMillis;
-    });
+      },
+      fileSize: 20000000,
+      onDefaultServerSelectionDone: (Client? clinet) {
+        // clinet.
+      },
+      onCompleted: (TestResult download, TestResult upload) {
+        log("download.transferRate = " + download.transferRate.toString());
+        log("Upload.transferRate = " + upload.transferRate.toString());
+        uploadCompleteRate = upload.transferRate;
+        downloadComplteRate = download.transferRate;
+        addTODOItem(
+          WifiResultModel(
+            testDate: DateTime.now(),
+            ping: '31',
+            dowoloadSpeed: download.transferRate.toString(),
+            uploadSpeed: upload.transferRate.toString(),
+          ),
+        );
+        homeState = 3;
+        notifyListeners();
+      },
+      onDownloadComplete: (TestResult data) {
+        testDownloadType = true;
+        log('Download is Complete = $data');
+        downloadComplteRate = data.transferRate;
+        notifyListeners();
+      },
+      onStarted: () {
+        homeState = 1;
+        log('Function Start');
+      },
+      onUploadComplete: (TestResult data) {
+        log('Uload Complete  = ${data.transferRate}');
+        uploadCompleteRate = data.transferRate;
+        testUploadType = true;
+        notifyListeners();
+      },
+      onDefaultServerSelectionInProgress: () {
+        log('Default Server ');
+      },
+    );
+    notifyListeners();
+  }
+
+  cleanData() {
+    dataUnit = '';
+    tranxferType = 'download';
+    transferRate = 0.0;
+    dataCompleteRate = 0.0;
+
+    homeState = 0;
+    testDownloadType = false;
+    testUploadType = false;
+    notifyListeners();
+  }
+
+  // Hive Working Start
+
+  String wifiResultBox = 'wifiResultBox';
+  List<WifiResultModel> _todoList = [];
+  List<WifiResultModel> get todoList => _todoList;
+  List<dynamic> parsedList = [];
+  // TODO WORK
+
+  addTODOItem(WifiResultModel product) async {
+    var box = await Hive.openBox<WifiResultModel>(wifiResultBox);
+    box.add(product);
+    notifyListeners();
+  }
+
+  getTODOItem() async {
+    final box = await Hive.openBox<WifiResultModel>(wifiResultBox);
+    _todoList = box.values.toList();
+    // log("Wifi Result length " + _todoList.length.toString());
 
     notifyListeners();
   }
 
-  void reset() {
-    testInProgress = false;
-    downloadRate = 0;
-    uploadRate = 0;
-    downloadProgress = '0';
-    uploadProgress = '0';
-    unitText = 'Mb/s';
-    downloadCompletionTime = 0;
-    uploadCompletionTime = 0;
+  updateTODOItem(int index, WifiResultModel product) {
+    final box = Hive.box<WifiResultModel>(wifiResultBox);
+    box.putAt(index, product);
+    notifyListeners();
+  }
+
+  deleteTODOItem(int index) {
+    final box = Hive.box<WifiResultModel>(wifiResultBox);
+    box.deleteAt(index);
+    log('Value Delete $index');
+    getTODOItem();
 
     notifyListeners();
   }

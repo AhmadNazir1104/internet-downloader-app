@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:internet_speed/models/wifi_Resut_Model.dart';
+import 'package:internet_speed/provider/home_provider.dart';
 import 'package:internet_speed/provider/wifi_provider.dart';
 import 'package:internet_speed/widgets/custom_app_bar.dart';
 import 'package:internet_speed/widgets/custom_text_widget.dart';
@@ -28,6 +30,7 @@ class _WifiInfoScreenState extends State<WifiInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<HomeProvider>().getTODOItem();
     WifiProvider wifiProvider =
         Provider.of<WifiProvider>(context, listen: true);
     return Scaffold(
