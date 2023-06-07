@@ -2,35 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:internet_speed/utility/app_strings.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../utility/app_colors.dart';
+import 'custom_text_widget.dart';
+
 class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String titleTxt;
-  const CustomeAppBar({Key? key, required this.titleTxt}) : super(key: key);
+  final bool appAlignment;
+  const CustomeAppBar({
+    Key? key,
+    required this.titleTxt,
+    required this.appAlignment,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0.0,
-      title: Text(
-        titleTxt,
-        style: TextStyle(
-          fontFamily: 'popinsmedium',
-        ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: text(
+        text: titleTxt,
+        size: 32.sp,
+        color: AppColors.textWhiteColor,
+        boldText: FontWeight.w700,
+        fontFamily: 'Jsefine Sans',
       ),
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              appColors().primaryColor,
-              appColors().secondaryColor
-            ])),
-      ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(10.r),
-        bottomRight: Radius.circular(10.r),
-      )),
+      centerTitle: appAlignment,
     );
   }
 

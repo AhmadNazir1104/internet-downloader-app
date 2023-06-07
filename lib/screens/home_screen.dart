@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_speed/pages/result_page.dart';
 import 'package:internet_speed/pages/setting_page.dart';
 import 'package:internet_speed/pages/start_page.dart';
 import 'package:internet_speed/screens/phone_info.dart';
 import 'package:internet_speed/screens/wifi_info.dart';
+import 'package:internet_speed/utility/app_Images.dart';
 import 'package:internet_speed/utility/app_strings.dart';
-import 'package:internet_speed/widgets/custom_app_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_speed/widgets/custom_text_widget.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import '../provider/internet_connection_provider.dart';
+import '../utility/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  void _navigationBottomBar(int index) {
+  void navigationBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -34,144 +37,168 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    InternetConnectionProvider internetConnectionProvider =
+        Provider.of<InternetConnectionProvider>(context, listen: true);
     return SafeArea(
-        child: Scaffold(
+      child: Scaffold(
+        // drawer: Drawer(
+        //   child: ListView(
+        //     padding: EdgeInsets.zero,
+        //     children: [
+        //       DrawerHeader(
+        //           decoration: BoxDecoration(
+        //               gradient: LinearGradient(
+        //                   begin: Alignment.topCenter,
+        //                   end: Alignment.bottomCenter,
+        //                   colors: [
+        //                 appColors().primaryColor,
+        //                 appColors().secondaryColor
+        //               ])),
+        //           child: Text("Spped")),
+        //       ListTile(
+        //         leading: Icon(Icons.phone),
+        //         title: Text("Phone"),
+        //         onTap: () {
+        //           Navigator.push(context, MaterialPageRoute(
+        //             builder: (context) {
+        //               return PhoneInfoScreen();
+        //             },
+        //           ));
+        //         },
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.wifi),
+        //         title: Text("Wifi"),
+        //         onTap: () {
+        //           Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //             return WifiInfoScreen();
+        //           }));
+        //         },
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.share),
+        //         title: Text("Share"),
+        //         onTap: (() {
+        //           Navigator.of(context).pop();
+        //         }),
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.person),
+        //         title: Text("About Us"),
+        //       ),
+        //       Divider(
+        //         height: 2,
+        //       ),
+        //       ListTile(
+        //         title: Text("Version: 1.0.1"),
+        //       )
+        //     ],
+        //   ),
+        // ),
 
-    
-      appBar: CustomeAppBar(titleTxt: "Internet Speed"),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  AppImages.backgroundImage,
+                ),
+                fit: BoxFit.cover),
+          ),
+          child: internetConnectionProvider.internetConnection
+              ? _pages[_selectedIndex]
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: Lottie.asset(
+                          AppImages.noInternetJson,
+                          // width: 200,
+                          // height: 200,
+                          // fit: BoxFit.fill,
+                        ),
+                      ),
+                      text(
+                        text: 'No Internet',
+                        size: 34.sp,
+                        color: AppColors.textGreyColor,
+                      )
+                    ],
+                  ),
+                ),
+        ),
 
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      appColors().primaryColor,
-                      appColors().secondaryColor
-                    ])),
-                child: Text("Spped")),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text("Phone"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return PhoneInfoScreen();
-                  },
-                ));
-              },
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textWhiteColor,
+                blurStyle: BlurStyle.outer,
+                blurRadius: 12,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: AppColors.primaryColor,
+            selectedLabelStyle: TextStyle(
+              color: AppColors.greenColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
             ),
-            ListTile(
-              leading: Icon(Icons.wifi),
-              title: Text("Wifi"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return WifiInfoScreen();
-                }));
-              },
+            unselectedLabelStyle: TextStyle(
+              color: AppColors.textWhiteColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
             ),
-            ListTile(
-              leading: Icon(Icons.share),
-              title: Text("Share"),
-              onTap: (() {
-                Navigator.of(context).pop();
-              }),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("About Us"),
-            ),
-            Divider(
-              height: 2,
-            ),
-            ListTile(
-              title: Text("Version: 1.0.1"),
-            )
-          ],
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  AppImages.metersmalIcon,
+                  height: 19,
+                  width: 25,
+                  fit: BoxFit.contain,
+                  color: _selectedIndex == 0
+                      ? AppColors.greenColor
+                      : AppColors.textWhiteColor,
+                ),
+                label: 'Start',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  AppImages.historyIcon,
+                  height: 19,
+                  width: 25,
+                  fit: BoxFit.contain,
+                  color: _selectedIndex == 1
+                      ? AppColors.greenColor
+                      : AppColors.textWhiteColor,
+                ),
+                label: 'History',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  AppImages.seetingIcon,
+                  height: 19,
+                  width: 25,
+                  fit: BoxFit.contain,
+                  color: _selectedIndex == 2
+                      ? AppColors.greenColor
+                      : AppColors.textWhiteColor,
+                ),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: AppColors.greenColor,
+            unselectedItemColor: AppColors.textWhiteColor,
+            onTap: navigationBottomBar,
+          ),
         ),
       ),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: Stack(children: [
-        Container(
-          height: 75.h,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                appColors().primaryColor,
-                appColors().secondaryColor
-              ])),
-        ),
-        BottomNavyBar(
-          selectedIndex: _selectedIndex,
-          showElevation: true,
-          itemCornerRadius: 24.r,
-          backgroundColor: Colors.transparent,
-          curve: Curves.easeIn,
-          onItemSelected: (index) => setState(() => _selectedIndex = index),
-          items: <BottomNavyBarItem>[
-            BottomNavyBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.powerOff,
-                color: _selectedIndex == 0
-                    ? appColors().primaryColor
-                    : Colors.white,
-              ),
-              title: Text(
-                'Start',
-                style: TextStyle(
-                  color: _selectedIndex == 0
-                      ? appColors().primaryColor
-                      : Colors.white,
-                ),
-              ),
-              activeColor: Colors.white,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.squarePollVertical,
-                color: _selectedIndex == 1
-                    ? appColors().primaryColor
-                    : Colors.white,
-              ),
-              title: Text(
-                'Result',
-                style: TextStyle(
-                  color: _selectedIndex == 1
-                      ? appColors().primaryColor
-                      : Colors.white,
-                ),
-              ),
-              activeColor: Colors.white,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.gears,
-                color: _selectedIndex == 2
-                    ? appColors().primaryColor
-                    : Colors.white,
-              ),
-              title: Text(
-                'Settings',
-                style: TextStyle(
-                  color: _selectedIndex == 2
-                      ? appColors().primaryColor
-                      : Colors.white,
-                ),
-              ),
-              activeColor: Colors.white,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ]),
-    ));
+    );
   }
 }

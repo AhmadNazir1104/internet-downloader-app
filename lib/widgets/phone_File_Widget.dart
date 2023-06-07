@@ -16,39 +16,41 @@ class PhoneFileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 45.h,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 10.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.r),
-        gradient: AppColors.Lineargradiebnt,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 1,
-            spreadRadius: 1,
-            blurStyle: BlurStyle.outer,
-            color: appColors().primaryColor,
-            offset: Offset(1, 1),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              text(
+                text: '$initialVal   :  ',
+                size: 15.sp,
+                color: AppColors.textWhiteColor,
+                boldText: FontWeight.w400,
+                fontFamily: 'Josefin Sans',
+              ),
+              Expanded(child: Container()),
+              text(
+                text: valueof.length > 10
+                    ? "${valueof.substring(0, 10)}..."
+                    : valueof,
+                size: 15.sp,
+                color: AppColors.textWhiteColor,
+                boldText: FontWeight.w400,
+                fontFamily: 'Josefin Sans',
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          text(
-            text: '$initialVal   :  ',
-            size: 12.sp,
-            color: AppColors.textGreyColor,
-          ),
-          text(
-            text: valueof,
-            size: 12.sp,
-            color: AppColors.textWhiteColor,
-          ),
-        ],
-      ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          height: 2.h,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 10.h),
+          color: AppColors.textGreyColor,
+        ),
+      ],
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 part 'wifi_Resut_Model.g.dart';
 
@@ -12,13 +11,14 @@ class WifiResultModel {
   String? dowoloadSpeed;
   @HiveField(3)
   String? uploadSpeed;
-
+  @HiveField(4)
+  String? ipAddress;
 
   WifiResultModel({
     this.testDate,
     this.ping,
-    this.dowoloadSpeed, 
+    this.dowoloadSpeed,
     this.uploadSpeed,
-
+    this.ipAddress,
   });
 }

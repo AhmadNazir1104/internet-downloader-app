@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:internet_speed/utility/app_Images.dart';
+import 'package:internet_speed/utility/app_colors.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_speed/screens/home_screen.dart';
 import 'package:internet_speed/widgets/app_Routes.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -31,21 +32,63 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              AppImages.backgroundImage,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(
-              image: AssetImage(
-                AppImages.appLogo,
+            SizedBox(
+              height: 250,
+              width: MediaQuery.of(context).size.width,
+              child: Image(
+                image: AssetImage(
+                  AppImages.spalshIcon,
+                ),
+                // fit: BoxFit.contain ,
               ),
             ),
-            SizedBox(
-              height: 150.h,
+            Text(
+              'INTERNET',
+              style: TextStyle(
+                fontFamily: 'josefine Sans',
+                fontSize: 36,
+                color: AppColors.textWhiteColor,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             Text(
-              "Speed Checker",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            )
+              'SPEED TEST',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                // decoration: TextDecoration.underline,
+                fontFamily: 'josefine Sans',
+                fontSize: 24,
+                color: AppColors.textWhiteColor,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                'By LoopStack',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  // decoration: TextDecoration.underline,
+                  fontFamily: 'josefine Sans',
+                  fontSize: 14,
+                  color: AppColors.textWhiteColor,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
           ],
         ),
       ),

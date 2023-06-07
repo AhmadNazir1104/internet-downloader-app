@@ -30,11 +30,12 @@ class HomeProvider extends ChangeNotifier {
   int homeState = 0;
   bool testDownloadType = false;
   bool testUploadType = false;
+  String ipAddress = '';
 
   checkInterSpeed() {
     internetSpeedTest.startTesting(
       onProgress: (percent, data) {
-        print(
+        log(
           'data.unit ${data.unit} Transfer Type : ${data.type}the transfer rate ${data.transferRate}, the percent $percent',
         );
 
@@ -50,7 +51,7 @@ class HomeProvider extends ChangeNotifier {
       },
       fileSize: 20000000,
       onDefaultServerSelectionDone: (Client? clinet) {
-        // clinet.
+        ipAddress = clinet!.ip!;
       },
       onCompleted: (TestResult download, TestResult upload) {
         log("download.transferRate = " + download.transferRate.toString());
@@ -63,6 +64,7 @@ class HomeProvider extends ChangeNotifier {
             ping: '31',
             dowoloadSpeed: download.transferRate.toString(),
             uploadSpeed: upload.transferRate.toString(),
+            ipAddress: ipAddress,
           ),
         );
         homeState = 3;
@@ -72,6 +74,7 @@ class HomeProvider extends ChangeNotifier {
         testDownloadType = true;
         log('Download is Complete = $data');
         downloadComplteRate = data.transferRate;
+
         notifyListeners();
       },
       onStarted: () {
@@ -82,6 +85,7 @@ class HomeProvider extends ChangeNotifier {
         log('Uload Complete  = ${data.transferRate}');
         uploadCompleteRate = data.transferRate;
         testUploadType = true;
+        // homeState = 0;
         notifyListeners();
       },
       onDefaultServerSelectionInProgress: () {
@@ -96,7 +100,7 @@ class HomeProvider extends ChangeNotifier {
     tranxferType = 'download';
     transferRate = 0.0;
     dataCompleteRate = 0.0;
-
+    // uploadCompleteRate == null;
     homeState = 0;
     testDownloadType = false;
     testUploadType = false;

@@ -1,11 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:internet_speed/models/wifi_Resut_Model.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class WifiProvider extends ChangeNotifier {
 //  Wifi Veriables
@@ -52,7 +49,7 @@ class WifiProvider extends ChangeNotifier {
 
           log('Wifi name = $wifiName');
           log('Wifi BSSID = $wifiBSSID');
-            notifyListeners();
+          notifyListeners();
         }
       } else {
         wifiName = await info.getWifiName();
@@ -66,18 +63,12 @@ class WifiProvider extends ChangeNotifier {
 
         log('Wifi name = $wifiName');
         log('Wifi BSSID = $wifiBSSID');
-          notifyListeners();
+        notifyListeners();
       }
     } on PlatformException catch (e) {
       log('Failed to get Wifi Name', error: e);
       wifiName = 'Failed to get Wifi Name';
     }
-      notifyListeners();
+    notifyListeners();
   }
-
-
-
-
- 
-
 }

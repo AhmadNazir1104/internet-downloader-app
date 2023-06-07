@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:internet_speed/models/phone_model.dart';
 
 class PhoneProvider extends ChangeNotifier {
   // Phone Data Veriables

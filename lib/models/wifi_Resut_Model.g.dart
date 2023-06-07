@@ -21,13 +21,14 @@ class WifiResultModelAdapter extends TypeAdapter<WifiResultModel> {
       ping: fields[1] as String?,
       dowoloadSpeed: fields[2] as String?,
       uploadSpeed: fields[3] as String?,
+      ipAddress: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WifiResultModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.testDate)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class WifiResultModelAdapter extends TypeAdapter<WifiResultModel> {
       ..writeByte(2)
       ..write(obj.dowoloadSpeed)
       ..writeByte(3)
-      ..write(obj.uploadSpeed);
+      ..write(obj.uploadSpeed)
+      ..writeByte(4)
+      ..write(obj.ipAddress);
   }
 
   @override
