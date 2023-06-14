@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:internet_speed/utility/app_strings.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../utility/app_colors.dart';
 import 'custom_text_widget.dart';
 

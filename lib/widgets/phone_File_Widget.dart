@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_speed/utility/app_colors.dart';
-import 'package:internet_speed/utility/app_strings.dart';
 import 'package:internet_speed/widgets/custom_text_widget.dart';
 
 // ignore: must_be_immutable

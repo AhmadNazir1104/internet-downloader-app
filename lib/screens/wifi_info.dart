@@ -1,20 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:internet_speed/models/wifi_Resut_Model.dart';
 import 'package:internet_speed/provider/home_provider.dart';
 import 'package:internet_speed/provider/wifi_provider.dart';
 import 'package:internet_speed/widgets/custom_app_bar.dart';
 import 'package:internet_speed/widgets/custom_text_widget.dart';
-import 'package:internet_speed/widgets/phone_File_Widget.dart';
-import 'dart:developer' as developer;
-import 'dart:io';
-import 'package:network_info_plus/network_info_plus.dart';
 import 'package:provider/provider.dart';
 import '../ads_services/ads_services.dart';
-import '../provider/phone_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../utility/app_Images.dart';
 import '../utility/app_colors.dart';
 
@@ -38,7 +29,7 @@ class _WifiInfoScreenState extends State<WifiInfoScreen> {
     WifiProvider wifiProvider =
         Provider.of<WifiProvider>(context, listen: true);
     return Scaffold(
-      bottomNavigationBar: AdsServices.displayBannerAd(),
+      // bottomNavigationBar: AdsServices.displayBannerAd(),
       appBar: CustomeAppBar(
         titleTxt: 'Wifi Info',
         appAlignment: true,
@@ -136,27 +127,6 @@ class _WifiInfoScreenState extends State<WifiInfoScreen> {
                           boldText: FontWeight.w400,
                         ),
                       ),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiName.toString(),
-                      //     initialVal: 'Wifi Name'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiBSSID.toString(),
-                      //     initialVal: 'WifiBSSID'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiIPv4.toString(),
-                      //     initialVal: 'WifiIPv4'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiIPv6.toString(),
-                      //     initialVal: 'WifiIPv6'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiGatewayIP.toString(),
-                      //     initialVal: 'Wifi Gateway IP'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiBroadcast.toString(),
-                      //     initialVal: 'wifiBroadcast'),
-                      // PhoneFileWidget(
-                      //     valueof: wifiProvider.wifiSubmask.toString(),
-                      //     initialVal: 'wifiSubmask'),
                     ],
                   ),
                   Column(

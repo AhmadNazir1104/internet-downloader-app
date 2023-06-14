@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      bottomNavigationBar: AdsServices.displayBannerAd(),
+      // bottomNavigationBar: AdsServices.displayBannerAd(),
       appBar: CustomeAppBar(
         appAlignment: true,
         titleTxt: 'Settings',
@@ -65,21 +65,21 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             Container(height: 0.5, color: AppColors.textGreyColor),
-            ListTile(
-              leading: Icon(
-                Icons.privacy_tip_outlined,
-                color: AppColors.textWhiteColor,
-              ),
-              title: text(
-                text: 'privacy',
-                size: 20.sp,
-                color: AppColors.textWhiteColor,
-                fontFamily: 'Josefine Sans',
-                boldText: FontWeight.w500,
-              ),
-              onTap: () {},
-            ),
-            Container(height: 0.5, color: AppColors.textGreyColor),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.privacy_tip_outlined,
+            //     color: AppColors.textWhiteColor,
+            //   ),
+            //   title: text(
+            //     text: 'privacy',
+            //     size: 20.sp,
+            //     color: AppColors.textWhiteColor,
+            //     fontFamily: 'Josefine Sans',
+            //     boldText: FontWeight.w500,
+            //   ),
+            //   onTap: () {},
+            // ),
+            // Container(height: 0.5, color: AppColors.textGreyColor),
             ListTile(
               leading: Icon(
                 Icons.share,
@@ -117,7 +117,7 @@ class SettingsPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: text(
-                  text: 'Version: 1.0.1',
+                  text: 'Version: 1.0.0+1',
                   size: 24.sp,
                   fontFamily: 'Josefin Sans',
                   color: AppColors.textWhiteColor,

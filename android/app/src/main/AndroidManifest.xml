@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.internet_speed">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
    <application
-        android:label="internet_speed"
+        android:label="WiFi tester-Internet SpeedTest"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -31,6 +35,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="applovin.sdk.key"
-           android:value="2MUk_Fq0UafQGZkmSOKcfnpy67su3ddUd6I7o77CPGESea05sQvHJKUgu3BbW9QcUp6GPRowXANMXeeT4So_Jd"/>
+           android:value="6en8B14_XLntOL2ThoWDa5TnoZqse9u8utMULJ4oD0HhBJWI0MAqc0wGt0_fZ3phSw44CVbqDtfdCIWm38w9dT"/>
     </application>
 </manifest>

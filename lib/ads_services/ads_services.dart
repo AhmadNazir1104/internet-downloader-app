@@ -4,11 +4,11 @@ import 'dart:math' as m;
 
 class AdsServices {
   static var sdkKey =
-      "2MUk_Fq0UafQGZkmSOKcfnpy67su3ddUd6I7o77CPGESea05sQvHJKUgu3BbW9QcUp6GPRowXANMXeeT4So_Jd";
-  static var bannerAdID = "be1043b515d1c606";
-  static var interstitialAdID = "78008fdd25494cfa";
-  static var mrecAdID = '76ba1c887fc63e9c';
-  static var rewardedAdID = 'aa3f351ecca81855';
+      "6en8B14_XLntOL2ThoWDa5TnoZqse9u8utMULJ4oD0HhBJWI0MAqc0wGt0_fZ3phSw44CVbqDtfdCIWm38w9dT";
+  static var bannerAdID = "397dd3c41c73afde";
+  static var interstitialAdID = "5b112c69d536ccf7";
+  static var mrecAdID = '69282e8a8af44845';
+  static var rewardedAdID = '';
 
 // ---------------------  Banner Initialize -----------------------------
 

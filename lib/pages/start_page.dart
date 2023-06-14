@@ -27,7 +27,7 @@ class _StartPageState extends State<StartPage> {
         Provider.of<HomeProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      bottomNavigationBar: AdsServices.displayBannerAd(),
+      // bottomNavigationBar: AdsServices.displayBannerAd(),
       appBar: CustomeAppBar(titleTxt: 'SpeedTest', appAlignment: true),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -430,24 +430,6 @@ class _StartPageState extends State<StartPage> {
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   _timer.cancel();
-  //   super.dispose();
-  // }
-
-  // Row(
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: [
-  //     ElevatedButton(
-  //       onPressed: () async {
-  //         AdsServices.displayInterstitialAds();
-  //       },
-  //       child: Text('Display Interstitial Ads'),
-  //     ),
-  //   ],
-  // ),
 
   // AdsServices.displayNativeMRECAd(),
   void labelCreated(AxisLabelCreatedArgs args) {

@@ -57,6 +57,7 @@ dependencies:
   ripple_wave: ^0.0.2
   lottie: ^2.4.0
   flutter_launcher_icons: ^0.13.1
+  permission_handler: ^10.3.0
 
 dev_dependencies:
   flutter_test:

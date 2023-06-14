@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_speed/utility/app_colors.dart';
 import 'package:internet_speed/widgets/custom_text_widget.dart';
-import 'package:internet_speed/widgets/phone_File_Widget.dart';
 import 'package:provider/provider.dart';
 import 'package:internet_speed/provider/phone_provider.dart';
 import 'package:internet_speed/widgets/custom_app_bar.dart';
@@ -30,7 +29,7 @@ class _PhoneInfoScreenState extends State<PhoneInfoScreen> {
         Provider.of<PhoneProvider>(context, listen: true);
     // phoneProvider.readAndroidBuildData();
     return Scaffold(
-      bottomNavigationBar: AdsServices.displayBannerAd(),
+      // bottomNavigationBar: AdsServices.displayBannerAd(),
       appBar: CustomeAppBar(
         appAlignment: true,
         titleTxt: 'Phone Info',
@@ -58,7 +57,6 @@ class _PhoneInfoScreenState extends State<PhoneInfoScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 70.h),
-
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: text(
@@ -69,7 +67,6 @@ class _PhoneInfoScreenState extends State<PhoneInfoScreen> {
                           boldText: FontWeight.w400,
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: text(
@@ -210,63 +207,6 @@ class _PhoneInfoScreenState extends State<PhoneInfoScreen> {
                           boldText: FontWeight.w400,
                         ),
                       ),
-
-                      // PhoneFileWidget(
-                      //   valueof: phoneProvider.board.toString(),
-                      //   initialVal: 'Board of Device',
-                      // ),
-                      // PhoneFileWidget(
-                      //   valueof: phoneProvider.manufactures.toString(),
-                      //   initialVal: 'Manufactures',
-                      // ),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.model.toString(),
-                      //     initialVal: 'Device Model'),
-                      // PhoneFileWidget(
-                      //   valueof: phoneProvider.display.toString(),
-                      //   initialVal: 'Display',
-                      // ),
-                      // PhoneFileWidget(
-                      //   valueof: phoneProvider.id.toString(),
-                      //   initialVal: "ID",
-                      // ),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.hardware.toString(),
-                      //     initialVal: "Hardware"),
-                      // PhoneFileWidget(
-                      //   valueof: phoneProvider.host.toString(),
-                      //   initialVal: "Host",
-                      // ),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.supported32BitAbis.toString(),
-                      //     initialVal: 'Supported32BitAbis'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.supported64BitAbis.toString(),
-                      //     initialVal: 'Supported64BitAbis'),
-                      // PhoneFileWidget(
-                      //     valueof:
-                      //         phoneProvider.systemFeature.toString().length > 10
-                      //             ? phoneProvider.systemFeature
-                      //                     .toString()
-                      //                     .substring(0, 30) +
-                      //                 ' ......'
-                      //             : phoneProvider.systemFeature.toString(),
-                      //     initialVal: 'SystemFeature'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.displaySizeInches.toString(),
-                      //     initialVal: 'Display Size in Inches'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.displayWidthInches.toString(),
-                      //     initialVal: 'Dispaly Width In Inches'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.isPhysicalDevice.toString(),
-                      //     initialVal: 'Is Physical Device'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.displayXDpi.toString(),
-                      //     initialVal: 'Display Xdpi'),
-                      // PhoneFileWidget(
-                      //     valueof: phoneProvider.displayYDpi.toString(),
-                      //     initialVal: 'Display Ydpi')
                     ],
                   ),
                   Column(
