@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'applovin-quality-service'
 applovin {
-       apiKey "A5XP_KT9NMQ1qsZ7qrTNaGwvFnclEmflb8rWXDutBEewZwxFdi6FJN3pB5vA5gw7TuJdc_wGNUeWHPozNR6LdC"
+       apiKey "QnhnqoKbXFaoXTRZrkKmGWBITKSma7MGyoFK00IvTC1GUZ6gTwoE81gTTKOToN7Il8cyDPMwku6QHt9QBFKpyi"
 }
 
 android {

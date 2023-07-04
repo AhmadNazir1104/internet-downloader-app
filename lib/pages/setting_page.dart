@@ -117,7 +117,7 @@ class SettingsPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: text(
-                  text: 'Version: 1.0.0+1',
+                  text: 'Version: 1.0.3',
                   size: 24.sp,
                   fontFamily: 'Josefin Sans',
                   color: AppColors.textWhiteColor,
